@@ -85,11 +85,11 @@ WSGI_APPLICATION = 'feediny.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'dd150ib3klg1uu',
-        'HOST':'ec2-34-193-112-164.compute-1.amazonaws.com',
+        'NAME': 'dakgtshk96b0ia',
+        'HOST':'ec2-52-45-179-101.compute-1.amazonaws.com',
         'PORT': 5432,
-        'USER':'hykercoxrwpcsf',
-        'PASSWORD':'da84f85c785432c56b9603ac752b107f3f575e4e391e616eee11c79c97401408',
+        'USER':'ipcgzpsvajpzup',
+        'PASSWORD':'98f00e3ec109dee4ce16b4f9e3d0402efa0441c08c7d87f2a4b8a872510438d4',
     }
 }
 
