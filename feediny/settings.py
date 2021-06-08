@@ -84,8 +84,12 @@ WSGI_APPLICATION = 'feediny.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'dd150ib3klg1uu',
+        'HOST':'ec2-34-193-112-164.compute-1.amazonaws.com',
+        'PORT': 5432,
+        'USER':'hykercoxrwpcsf',
+        'PASSWORD':'da84f85c785432c56b9603ac752b107f3f575e4e391e616eee11c79c97401408',
     }
 }
 
