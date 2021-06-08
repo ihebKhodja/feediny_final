@@ -1,0 +1,1 @@
+web: gunicorn feediny.wsgi --log-file -
