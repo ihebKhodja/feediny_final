@@ -1,5 +1,5 @@
 from django.db import models
-#from account.models import Client, Manager
+from account.models import Client, Manager
 
 
 class Restaurant(models.Model):
