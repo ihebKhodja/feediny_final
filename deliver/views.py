@@ -64,7 +64,7 @@ class CategoryDetail(generics.RetrieveUpdateDestroyAPIView):
 
 
 #### Cart
-class CartList(generics.ListCreateAPIView):
+class CartList(generics.ListAPIView):
     queryset = Cart.objects.all()
     serializer_class = CartSerializer
 
