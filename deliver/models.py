@@ -50,3 +50,4 @@ class Cart(models.Model):
     client = models.ForeignKey('account.Client', on_delete=models.CASCADE, null=True)
     price = models.IntegerField()
     meal = models.ManyToManyField('Meal')
+#####

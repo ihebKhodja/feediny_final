@@ -66,7 +66,7 @@ class CartList(generics.ListAPIView):
     queryset = Cart.objects.all()
     serializers_class = CartSerializer
 
-
+####
 ##### User
 # class ManagerList(generics.ListAPIView):
 #     queryset = Manager.objects.all()
