@@ -34,3 +34,4 @@ whitenoise==5.2.0
 win32-setctime==1.0.3
 sync==1.0.0
 Jinja2==2.11.2
+boto3==1.17.90
