@@ -26,13 +26,13 @@ class ManagerDetail(generics.RetrieveAPIView):
 ##Register API
 
 @api_view(['POST',])
-	def RegisterManager:
-		serializer = RegistrationManagerSerializer(data=request.data)
-		if serializer.is_valid():
-			serializer.save()
-			return Response(status=status.HTTP_201_CREATED)
-		else:
-			return Response(serializer.errors)
+def RegisterManager(request):
+	serializer = RegistrationManagerSerializer(data=request.data)
+	if serializer.is_valid():
+		serializer.save()
+		return Response(status=status.HTTP_201_CREATED)
+	else:
+		return Response(serializer.errors)
 
 # class RegisterManager(APIView):
 #     serializer_class = RegistrationManagerSerializer
