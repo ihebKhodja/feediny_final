@@ -39,8 +39,8 @@ class OrderSerializer(serializers.ModelSerializer):
 
 
 class CartSerializer(serializers.ModelSerializer):
+    meal = MealSerializer()
     class Meta:
         model = Cart
         fields = ['id','restaurant','price','meal']
-
 
