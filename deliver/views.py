@@ -72,7 +72,7 @@ class CartAdd(generics.CreateAPIView):
     queryset = Cart.objects.all()
     serializer_class = CartSerializer
 
-class CartMofidier(generics.RetrieveUpdateDestroyAPIView):
+class CartModifier(generics.RetrieveUpdateDestroyAPIView):
     queryset = Cart.objects.all()
     serializer_class = CartSerializer
 ####
