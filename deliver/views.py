@@ -2,7 +2,8 @@ from django.http import Http404
 from rest_framework import generics, permissions
 from rest_framework.response import Response
 from rest_framework.views import APIView
-
+from .models import *
+from account.models import *
 from .serializers import *
 from django.contrib.auth.models import User
 from .permissions import IsOwnerOrReadOnly
@@ -61,10 +62,11 @@ class CategoryDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
 
+
 #### Cart
-class CartList(generics.ListAPIView):
+class CartList(generics.ListCreateAPIView):
     queryset = Cart.objects.all()
-    serializers_class = CartSerializer
+    serializer_class = CartSerializer
 
 ####
 ##### User
