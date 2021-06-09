@@ -70,14 +70,14 @@ class RegistrationManagerSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         user = User.objects.create(
-            username=self.validated_data['username'],
+            username=self.validated_data['phone_number'],
             email=self.validated_data['email'],
             password=self.validated_data['password'])
 
         user.set_password(self.validated_data['password'])
         user.save()
         token = Token.objects.create(user=user)
-        manager = Manager.objects.create(user=user, user_name=validated_data['phone_number'],
+        manager = Manager.objects.create(user=user, phone_number=validated_data['phone_number'],
                                          email=self.validated_data['email'],
                                          password=self.validated_data['password'], token=token)
 
