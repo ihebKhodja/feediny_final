@@ -77,7 +77,8 @@ class RegistrationManagerSerializer(serializers.ModelSerializer):
         user.set_password(self.validated_data['password'])
         user.save()
         token = Token.objects.create(user=user)
-        manager = Manager.objects.create(user=user, phone_number=validated_data['phone_number'],token=token)
+        manager = Manager.objects.create(user=user, phone_number=validated_data['phone_number'],
+                                         token=token)
 
         manager.save()
         return user, manager
