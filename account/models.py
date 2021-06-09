@@ -1,4 +1,3 @@
-from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
 from django.contrib.auth.models import PermissionsMixin, User
 from deliver.models import *
 
@@ -10,7 +9,7 @@ class Manager(models.Model):
     is_superuser = False
 
     def __str__(self):
-        return self.username
+        return self.user.username
 
 
 class Client(models.Model):
@@ -23,7 +22,7 @@ class Client(models.Model):
     is_superuser = False
 
     def __str__(self):
-        return self.username
+        return self.user.username
 
 #
 # class UserProfileManager(BaseUserManager):
