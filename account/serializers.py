@@ -6,11 +6,11 @@ from .models import *
 
 
 class ManagerSerializer(serializers.ModelSerializer):
-    restaurant = serializers.PrimaryKeyRelatedField(many=True, queryset=Meal.objects.all())
+    # restaurant = serializers.PrimaryKeyRelatedField(many=True, queryset=Meal.objects.all())
 
     class Meta:
         model = Manager
-        fields = ['id', 'phone_number', 'restaurant']
+        fields = ['id', 'phone_number']
 
 
 #
