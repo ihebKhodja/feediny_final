@@ -33,3 +33,4 @@ whitenoise==5.2.0
 win32-setctime==1.0.3
 django-filter==2.4.0
 sync==1.0.0
+Jinja2==2.6
