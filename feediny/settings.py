@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-t4c)t&b1835+3+jhm$wa29bh+sk5z5=lrf0zt&#21e)kez@_jp'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['feedinyapp.heroku.com', '127.0.0.1']
 
