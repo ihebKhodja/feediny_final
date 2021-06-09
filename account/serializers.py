@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from rest_framework.authtoken.models import Token
+
 from deliver.models import *
 from .models import *
 
@@ -59,27 +60,24 @@ class ManagerSerializer(serializers.ModelSerializer):
 #         fields = ('username', 'first_name', 'last_name', 'email')
 
 class RegistrationManagerSerializer(serializers.ModelSerializer):
+    password = serializers.CharField(style={'input_type': 'password'}, write_only=True)
     password2 = serializers.CharField(style={'input_type': 'password'}, write_only=True)
 
     class Meta:
         model = Manager
-        fields = ['id', 'phone_number', 'email', 'password', 'password2']
+        fields = ['id', 'phone_number', 'password', 'password2']
         extra_kwargs = {
             'password': {'write_only': True}
         }
 
     def create(self, validated_data):
         user = User.objects.create(
-            username=self.validated_data['phone_number'],
-            email=self.validated_data['email'],
-            password=self.validated_data['password'])
+            username=self.validated_data['phone_number'])
 
         user.set_password(self.validated_data['password'])
         user.save()
         token = Token.objects.create(user=user)
-        manager = Manager.objects.create(user=user, phone_number=validated_data['phone_number'],
-                                         email=self.validated_data['email'],
-                                         password=self.validated_data['password'], token=token)
+        manager = Manager.objects.create(user=user, phone_number=validated_data['phone_number'],token=token)
 
         manager.save()
         return user, manager

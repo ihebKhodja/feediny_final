@@ -6,7 +6,7 @@ app_name='account'
 urlpatterns=[
     path('manager/', views.ManagerList.as_view(),name='managers_list'),
     path('manager/<int:pk>/', views.ManagerDetail.as_view(),name='manager_detail'),
-    path('manager/register/',views.RegisterManager.as_view(),name='manager_registration'),
+    path('manager/register/', views.RegisterManager.as_view(),name='manager_registration'),
 
 
 ]

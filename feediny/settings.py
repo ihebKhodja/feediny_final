@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'account.apps.AccountConfig',
     'rest_framework',
     'knox',
+    'rest_framework.authtoken',
 
 ]
 

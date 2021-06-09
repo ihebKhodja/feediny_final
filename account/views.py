@@ -1,8 +1,9 @@
+from rest_framework.templatetags.rest_framework import data
 from rest_framework.views import APIView
 from .models import *
 from .serializers import *
 from django.contrib.auth.models import User
-from rest_framework import generics
+from rest_framework import generics, status
 from rest_framework import generics, permissions
 from rest_framework.response import Response
 from knox.models import AuthToken
@@ -23,11 +24,13 @@ class ManagerDetail(generics.RetrieveAPIView):
 class RegisterManager(APIView):
     serializer_class = RegistrationManagerSerializer
 
+
     def post(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
+        serializer = RegistrationManagerSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         manager = serializer.save()
+
         return Response({
-        "manager": RegistrationManagerSerializer(manager, context=self.get_serializer_context()).data,
-        "token": AuthToken.objects.create(manager)[1]
-        })
+            "manager": RegistrationManagerSerializer(manager, context=self.get_serializer_context()).data,
+            "token": AuthToken.objects.create(manager)[1]
+         })

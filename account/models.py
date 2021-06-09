@@ -24,7 +24,7 @@ class Client(models.Model):
     def __str__(self):
         return self.user.username
 
-#
+
 # class UserProfileManager(BaseUserManager):
 #
 #     def create_user(self, email, name, password=None):
