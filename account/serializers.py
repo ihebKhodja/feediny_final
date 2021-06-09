@@ -35,6 +35,25 @@ from .models import *
 #         return user
 
 
+#class ClientSerializer(serializers.ModelSerializer):
+    # client= Client(user=user, email= email, username= username)
+    # class Meta:
+    #     model = Client
+    #     fileds = ['user.email', 'user.username','user.password']
+    #     extra_kwargs = {
+    #         'password': {'write_only': True}
+    #     },
+    #
+    #     def save(self):
+    #         client = Client(
+    #             email=self.validated_data['user.email'],
+    #             username=self.validated_data['user.username'],
+    #         )
+    #         password=self.validated_data['user.password']
+    #         client.set_password(password)
+    #         client.save()
+    #         return client
+
 
 class RegistrationManagerSerializer(serializers.ModelSerializer):
 
