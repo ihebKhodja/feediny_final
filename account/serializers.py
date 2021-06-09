@@ -10,7 +10,7 @@ class ManagerSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Manager
-        fields = ['id', 'user', 'restaurant']
+        fields = ['id', 'phone_number', 'restaurant']
 
 
 #
