@@ -1,8 +1,4 @@
-from django.shortcuts import render
-
-# Create your views here.
 from rest_framework.views import APIView
-
 from .models import *
 from .serializers import *
 from django.contrib.auth.models import User
@@ -21,7 +17,6 @@ class ManagerList(generics.ListAPIView):
 class ManagerDetail(generics.RetrieveAPIView):
     queryset = Manager.objects.all()
     serializer_class = ManagerSerializer
-
 
 
 ###Register API
