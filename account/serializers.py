@@ -6,12 +6,12 @@ from deliver.models import *
 from .models import *
 
 
-# class ManagerSerializer(serializers.ModelSerializer):
-#     restaurant = serializers.PrimaryKeyRelatedField(many=True, queryset=Meal.objects.all())
-#     class Meta:
-#         model = Manager
-#         fields = ['id', 'user', 'restaurant']
-#
+class ManagerSerializer(serializers.ModelSerializer):
+    restaurant = serializers.PrimaryKeyRelatedField(many=True, queryset=Meal.objects.all())
+    class Meta:
+        model = Manager
+        fields = ['id', 'user', 'restaurant']
+
 #
 #
 # class ManagerSerializer(serializers.ModelSerializer):
@@ -53,15 +53,16 @@ from .models import *
     #         client.set_password(password)
     #         client.save()
     #         return client
-
+# class UserSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = User
+#         fields = ('username', 'first_name', 'last_name', 'email')
 
 class RegistrationManagerSerializer(serializers.ModelSerializer):
-
-    password2 = serializers.CharField(style={'input_type': 'password'}, write_only=True)
-
+    #password2 = serializers.CharField(style={'input_type': 'password'}, write_only=True)
     class Meta:
         model = Manager
-        fields = ['id','first_name','last_name','username','email','password', 'password2']
+        fields = ['id','username', 'first_name', 'last_name', 'email']
         extra_kwargs = {
             'password': {'write_only': True}
         }
@@ -77,7 +78,12 @@ class RegistrationManagerSerializer(serializers.ModelSerializer):
         token = Token.objects.create(user= user)
         manager = Manager.objects.create(user=user, user_name=validated_data['username'],
                                 first_name=self.validated_data['first_name'],
-                                last_name=self.validated_data['last_name'], token= token)
+                                last_name=self.validated_data['last_name'], token=token)
 
         manager.save()
         return user, manager
+    # def create(self, validated_data):
+    #     user = UserSerializer.create(UserSerializer(), validated_data=user_data)
+    #     manager = Manager.objects.update_or_create(user=user,subject_major=validated_data.pop('subject_major'))
+    #     manager.save()
+    #     return manager

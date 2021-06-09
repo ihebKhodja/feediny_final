@@ -5,22 +5,25 @@ from deliver.models import *
 
 class Manager(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    phone_number = models.CharField(max_length=12, null=True)
+    USERNAME_FIELD = 'phone_number'
     is_superuser = False
 
     def __str__(self):
-        return self.user
+        return self.username
 
 
 class Client(models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE)
-    phone_number = models.CharField(max_length=12)
+    phone_number = models.CharField(max_length=12, null=True)
     delivery_location = models.CharField(max_length=512, blank=True)
     lat = models.FloatField(null=True, blank=True)
     lng = models.FloatField(null=True, blank=True)
+    USERNAME_FIELD = 'phone_number'
     is_superuser = False
 
     def __str__(self):
-        return self.phone_number
+        return self.username
 
 #
 # class UserProfileManager(BaseUserManager):

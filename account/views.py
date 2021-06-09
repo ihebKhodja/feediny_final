@@ -1,6 +1,8 @@
 from django.shortcuts import render
 
 # Create your views here.
+from rest_framework.views import APIView
+
 from .models import *
 from .serializers import *
 from django.contrib.auth.models import User
@@ -11,19 +13,19 @@ from knox.models import AuthToken
 from .serializers import *
 
 
-# class ManagerList(generics.ListAPIView):
-#     queryset = Manager.objects.all()
-#     serializer_class = ManagerSerializer
-#
-#
-# class ManagerDetail(generics.RetrieveAPIView):
-#     queryset = Manager.objects.all()
-#     serializer_class = ManagerSerializer
+class ManagerList(generics.ListAPIView):
+    queryset = Manager.objects.all()
+    serializer_class = ManagerSerializer
+
+
+class ManagerDetail(generics.RetrieveAPIView):
+    queryset = Manager.objects.all()
+    serializer_class = ManagerSerializer
 
 
 
 ###Register API
-class RegisterManager(generics.GenericAPIView):
+class RegisterManager(APIView):
     serializer_class = RegistrationManagerSerializer
 
     def post(self, request, *args, **kwargs):
