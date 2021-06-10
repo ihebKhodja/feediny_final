@@ -14,11 +14,4 @@ urlpatterns = [
     path('cart/<int:pk>', views.CartModifier.as_view(), name='Update_Delete_Retrieve_Cart'),#### post delete get methods
 
 
-
-
-
-    # path('manager/', views.ManagerList.as_view(), name='user_list'),
-    # path('manager/sign_up/', views.ManagerDetail.as_view(), name='user_detail'),
-    # path('client/registration/',views.ClientCreate.as_view(), name='create_client')
-
 ]

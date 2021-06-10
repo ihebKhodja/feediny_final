@@ -1,6 +1,4 @@
 from django.contrib.auth import authenticate, login
-from django.db.migrations import serializer
-from knox.models import AuthToken
 from rest_framework.decorators import api_view
 from rest_framework.templatetags.rest_framework import data
 from rest_framework.views import APIView
