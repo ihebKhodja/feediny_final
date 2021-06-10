@@ -67,7 +67,7 @@ class AddManagerSerializer(serializers.ModelSerializer):
     password2 = serializers.CharField(style={'input_type': 'password'}, write_only=True)
 
     class Meta:
-        model = Client
+        model = Manager
         fields = ['id','phone_number','delivery_location','lat','lng','password', 'password2']
         extra_kwargs = {
             'password': {'write_only': True}
@@ -110,12 +110,12 @@ class AddClientSerializer(serializers.ModelSerializer):
             user.set_password(self.validated_data['password'])
             user.save()
 
-            manager = Manager.objects.create(user=user, phone_number=validated_data['phone_number'],
+            client = Client.objects.create(user=user, phone_number=validated_data['phone_number'],
                                              delivery_location=self.validated_data['delivery_location'],
                                              lat= self.validated_data['lat'],lng=self.validated_data['lng'])
 
-            manager.save()
-            return user, manager
+            client.save()
+            return user, client
 
     # def create(self, validated_data):
     #     user = UserSerializer.create(UserSerializer(), validated_data=user_data)
