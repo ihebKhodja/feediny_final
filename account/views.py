@@ -28,17 +28,17 @@ class ManagerDetail(generics.RetrieveAPIView):
 
 @api_view(['POST', ])
 def RegisterManager(request):
-    serializer = RegistrationManagerSerializer(data=request.data)
+    serializer = AddManagerSerializer(data=request.data)
     data= {}
     if serializer.is_valid():
         manager = serializer.save()
         data['response'] = 'successfully registered new user.'
         data['phone_number'] = manager.phone_number
-        #return Response(data=data, status=status.HTTP_201_CREATED)
+        return Response(data, status=status.HTTP_201_CREATED)
     else:
-        #return Response(serializer.errors)
-        data = serializer.errors
-    return Response(data)
+        return Response(serializer.errors)
+        #data = serializer.errors
+    #return Response(data)
 
 @api_view(['POST', ])
 def LoginManager(request):

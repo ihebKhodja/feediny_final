@@ -59,7 +59,7 @@ class ManagerSerializer(serializers.ModelSerializer):
 #         model = User
 #         fields = ('username', 'first_name', 'last_name', 'email')
 
-class RegistrationManagerSerializer(serializers.ModelSerializer):
+class AddManagerSerializer(serializers.ModelSerializer):
     password = serializers.CharField(style={'input_type': 'password'}, write_only=True)
     password2 = serializers.CharField(style={'input_type': 'password'}, write_only=True)
 
@@ -87,7 +87,7 @@ class RegistrationManagerSerializer(serializers.ModelSerializer):
 
 
 
-class RegistrationClientSerializer(serializers.ModelSerializer):
+class AddClientSerializer(serializers.ModelSerializer):
         password = serializers.CharField(style={'input_type': 'password'}, write_only=True)
         password2 = serializers.CharField(style={'input_type': 'password'}, write_only=True)
 
