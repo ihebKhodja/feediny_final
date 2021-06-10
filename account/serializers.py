@@ -81,7 +81,7 @@ class AddManagerSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError({'password': 'Passwords must match'})
         user.set_password(password)
         user.save()
-        #token = Token.objects.create(user=user)
+        token = Token.objects.create(user=user)
         manager = Manager.objects.create(user=user, phone_number=validated_data['phone_number'])#token=token
 
         manager.save()
@@ -109,7 +109,7 @@ class AddClientSerializer(serializers.ModelSerializer):
                 raise serializers.ValidationError({'password': 'Passwords must match'})
             user.set_password(self.validated_data['password'])
             user.save()
-
+            token = Token.objects.create(user=user)
             client = Client.objects.create(user=user, phone_number=validated_data['phone_number'],
                                              delivery_location=self.validated_data['delivery_location'],
                                              lat= self.validated_data['lat'],lng=self.validated_data['lng'])
