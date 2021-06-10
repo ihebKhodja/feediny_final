@@ -93,7 +93,7 @@ class AddClientSerializer(serializers.ModelSerializer):
 
         class Meta:
             model = Manager
-            fields = ['id', 'phone_number', 'password', 'password2']
+            fields = ['id', 'phone_number','delivery_location','lat','lng','password', 'password2']
             extra_kwargs = {
                 'password': {'write_only': True}
             }
@@ -107,7 +107,9 @@ class AddClientSerializer(serializers.ModelSerializer):
             user.set_password(self.validated_data['password'])
             user.save()
             # token = Token.objects.create(user=user)
-            manager = Manager.objects.create(user=user, phone_number=validated_data['phone_number'])  # ,token=token
+            manager = Manager.objects.create(user=user, phone_number=validated_data['phone_number'],
+                                             delivery_location=self.validated_data['delivery_location'],
+                                             lat= self.validated_data['lat'],lng=self.validated_data['lng'])  # ,token=token
 
             manager.save()
             return user, manager
