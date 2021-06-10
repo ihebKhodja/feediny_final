@@ -59,7 +59,7 @@ class ManagerSerializer(serializers.ModelSerializer):
 #         model = User
 #         fields = ('username', 'first_name', 'last_name', 'email')
 
-class RegistrationClinetSerializer(serializers.ModelSerializer):
+class RegistrationManagerSerializer(serializers.ModelSerializer):
     password = serializers.CharField(style={'input_type': 'password'}, write_only=True)
     password2 = serializers.CharField(style={'input_type': 'password'}, write_only=True)
 

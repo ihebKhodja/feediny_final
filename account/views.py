@@ -20,7 +20,7 @@ class ManagerList(generics.ListAPIView):
 
 
 class ManagerDetail(generics.RetrieveAPIView):
-    queryset = Manager.objects.all()
+    queryset = Manager.objeRegistrationManagerSerializercts.all()
     serializer_class = ManagerSerializer
 
 
@@ -28,7 +28,7 @@ class ManagerDetail(generics.RetrieveAPIView):
 
 @api_view(['POST', ])
 def RegisterManager(request):
-    serializer = RegistrationManagerSerializer(data=request.data)
+    serializer = (data=request.data)
     data= {}
     if serializer.is_valid():
         manager = serializer.save()
