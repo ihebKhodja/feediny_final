@@ -84,7 +84,10 @@ class RegistrationManagerSerializer(serializers.ModelSerializer):
         manager.save()
         return user, manager
 
-    class RegistrationManagerSerializer(serializers.ModelSerializer):
+
+
+
+class RegistrationClientSerializer(serializers.ModelSerializer):
         password = serializers.CharField(style={'input_type': 'password'}, write_only=True)
         password2 = serializers.CharField(style={'input_type': 'password'}, write_only=True)
 
