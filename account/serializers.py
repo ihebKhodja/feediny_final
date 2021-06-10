@@ -82,7 +82,7 @@ class AddManagerSerializer(serializers.ModelSerializer):
         user.set_password(password)
         user.save()
         token = Token.objects.create(user=user)
-        manager = Manager.objects.create(user=user, phone_number=validated_data['phone_number'])#token=token
+        manager = Manager.objects.create(user=user, phone_number=validated_data['phone_number'])
 
         manager.save()
         return user, manager
