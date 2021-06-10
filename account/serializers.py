@@ -85,7 +85,7 @@ class AddManagerSerializer(serializers.ModelSerializer):
         manager = Manager.objects.create(user=user, phone_number=validated_data['phone_number'])
 
         manager.save()
-        return user, manager
+        return manager
 
 
 
