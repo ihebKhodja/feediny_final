@@ -76,7 +76,7 @@ class AddManagerSerializer(serializers.ModelSerializer):
         password2 = self.validated_data['password2']
         if password != password2:
             raise serializers.ValidationError({'password': 'Passwords must match'})
-        user.set_password(self.validated_data['password'])
+        user.set_password(password)
         user.save()
         #token = Token.objects.create(user=user)
         manager = Manager.objects.create(user=user, phone_number=validated_data['phone_number'])#,token=token

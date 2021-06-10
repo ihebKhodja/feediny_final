@@ -36,30 +36,17 @@ def RegisterManager(request):
         return Response(serializer.errors)
 
 
-
 @api_view(['POST', ])
 def LoginManager(request):
     username = request.POST['username']
     password = request.POST['password']
-    user = authenticate(request,username=username, password=password)
+    user = authenticate(request, username=username, password=password)
     token, created = Token.objects.get_or_create(user=user)
     if user is not None:
-        login(request,user)
-        return Response({'token':token.key, 'id':user.pk}, status=status.HTTP_200_OK)
+        login(request, user)
+        return Response({'token': token.key, 'id': user.pk}, status=status.HTTP_200_OK)
     else:
         return Response(status=status.HTTP_404_NOT_FOUND)
-
-
-
-
-
-
-
-
-
-
-
-
 
 # class RegisterManager(generics.GenericAPIView):
 #     serializer_class = RegistrationManagerSerializer
