@@ -12,7 +12,10 @@ class ManagerSerializer(serializers.ModelSerializer):
         model = Manager
         fields = ['id', 'phone_number']
 
-
+class ClientSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Client
+        fields = ['id','phone_number','delivery_location','lat','lng']
 #
 #
 # class ManagerSerializer(serializers.ModelSerializer):
@@ -106,10 +109,10 @@ class AddClientSerializer(serializers.ModelSerializer):
                 raise serializers.ValidationError({'password': 'Passwords must match'})
             user.set_password(self.validated_data['password'])
             user.save()
-            # token = Token.objects.create(user=user)
+
             manager = Manager.objects.create(user=user, phone_number=validated_data['phone_number'],
                                              delivery_location=self.validated_data['delivery_location'],
-                                             lat= self.validated_data['lat'],lng=self.validated_data['lng'])  # ,token=token
+                                             lat= self.validated_data['lat'],lng=self.validated_data['lng'])
 
             manager.save()
             return user, manager

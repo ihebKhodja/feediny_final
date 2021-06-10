@@ -23,6 +23,13 @@ class ManagerDetail(generics.RetrieveAPIView):
     queryset = Manager.objects.all()
     serializer_class = ManagerSerializer
 
+class ClientList(generics.ListAPIView):
+    queryset = Client.objects.all()
+    serializer_class = ClientSerializer
+
+class ClientDetail(generics.RetrieveAPIView):
+    queryset = Client.objects.all()
+    serializer_class = ClientSerializer
 
 ##Register API
 
@@ -37,7 +44,16 @@ def RegisterManager(request):
 
 
 @api_view(['POST', ])
-def LoginManager(request):
+def RegisterClient(request):
+    serializer = AddClientSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(status=status.HTTP_201_CREATED)
+    else:
+        return Response(serializer.errors)
+
+@api_view(['POST', ])
+def LoginUser(request):
     username = request.POST['username']
     password = request.POST['password']
     user = authenticate(request, username=username, password=password)
