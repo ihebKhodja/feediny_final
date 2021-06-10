@@ -1,6 +1,5 @@
 from rest_framework import serializers
 from rest_framework.authtoken.models import Token
-
 from deliver.models import *
 from .models import *
 
@@ -12,10 +11,13 @@ class ManagerSerializer(serializers.ModelSerializer):
         model = Manager
         fields = ['id', 'phone_number']
 
+
 class ClientSerializer(serializers.ModelSerializer):
     class Meta:
         model = Client
-        fields = ['id','phone_number','delivery_location','lat','lng']
+        fields = ['id', 'phone_number', 'delivery_location', 'lat', 'lng']
+
+
 #
 #
 # class ManagerSerializer(serializers.ModelSerializer):
@@ -65,16 +67,19 @@ class ClientSerializer(serializers.ModelSerializer):
 class AddManagerSerializer(serializers.ModelSerializer):
     password = serializers.CharField(style={'input_type': 'password'}, write_only=True)
     password2 = serializers.CharField(style={'input_type': 'password'}, write_only=True)
+    # first_name = Manager.user.first_name
+    # last_name = Manager.user.last_name
 
     class Meta:
         model = Manager
-        fields = ['id','phone_number','password', 'password2']
+        fields = ['id', 'phone_number','password', 'password2']
         extra_kwargs = {
             'password': {'write_only': True}
         }
 
     def create(self, validated_data):
         user = User.objects.create(username=self.validated_data['phone_number'])
+
         password = self.validated_data['password']
         password2 = self.validated_data['password2']
         if password != password2:
@@ -88,37 +93,35 @@ class AddManagerSerializer(serializers.ModelSerializer):
         return manager
 
 
-
-
 class AddClientSerializer(serializers.ModelSerializer):
-        password = serializers.CharField(style={'input_type': 'password'}, write_only=True)
-        password2 = serializers.CharField(style={'input_type': 'password'}, write_only=True)
+    password = serializers.CharField(style={'input_type': 'password'}, write_only=True)
+    password2 = serializers.CharField(style={'input_type': 'password'}, write_only=True)
 
-        class Meta:
-            model = Client
-            fields = ['id', 'phone_number','delivery_location','lat','lng','password', 'password2']
-            extra_kwargs = {
-                'password': {'write_only': True}
-            }
+    class Meta:
+        model = Client
+        fields = ['id', 'phone_number', 'delivery_location', 'lat', 'lng', 'password', 'password2']
+        extra_kwargs = {
+            'password': {'write_only': True}
+        }
 
-        def create(self, validated_data):
-            user = User.objects.create(username=self.validated_data['phone_number'])
-            password = self.validated_data['password']
-            password2 = self.validated_data['password2']
-            if password != password2:
-                raise serializers.ValidationError({'password': 'Passwords must match'})
-            user.set_password(self.validated_data['password'])
-            user.save()
-            token = Token.objects.create(user=user)
-            client = Client.objects.create(user=user, phone_number=validated_data['phone_number'],
-                                             delivery_location=self.validated_data['delivery_location'],
-                                             lat= self.validated_data['lat'],lng=self.validated_data['lng'])
+    def create(self, validated_data):
+        user = User.objects.create(username=self.validated_data['phone_number'])
+        password = self.validated_data['password']
+        password2 = self.validated_data['password2']
+        if password != password2:
+            raise serializers.ValidationError({'password': 'Passwords must match'})
+        user.set_password(self.validated_data['password'])
+        user.save()
+        token = Token.objects.create(user=user)
+        client = Client.objects.create(user=user, phone_number=validated_data['phone_number'],
+                                       delivery_location=self.validated_data['delivery_location'],
+                                       lat=self.validated_data['lat'], lng=self.validated_data['lng'])
 
-            client.save()
-            return user, client
+        client.save()
+        return client
 
-    # def create(self, validated_data):
-    #     user = UserSerializer.create(UserSerializer(), validated_data=user_data)
-    #     manager = Manager.objects.update_or_create(user=user,subject_major=validated_data.pop('subject_major'))
-    #     manager.save()
-    #     return manager
+# def create(self, validated_data):
+#     user = UserSerializer.create(UserSerializer(), validated_data=user_data)
+#     manager = Manager.objects.update_or_create(user=user,subject_major=validated_data.pop('subject_major'))
+#     manager.save()
+#     return manager
