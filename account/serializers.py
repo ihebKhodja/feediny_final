@@ -81,8 +81,8 @@ class AddManagerSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError({'password': 'Passwords must match'})
         user.set_password(password)
         user.save()
-        token = Token.objects.create(user=user)
-        manager = Manager.objects.create(user=user, phone_number=validated_data['phone_number'],token=token)#
+        #token = Token.objects.create(user=user)
+        manager = Manager.objects.create(user=user, phone_number=validated_data['phone_number'])#token=token
 
         manager.save()
         return user, manager
