@@ -7,6 +7,7 @@ class Manager(models.Model):
     phone_number = models.CharField(max_length=12, null=True)
     USERNAME_FIELD = 'phone_number'
     is_superuser = False
+    is_staff = False
 
     def __str__(self):
         return self.user.username
@@ -20,6 +21,7 @@ class Client(models.Model):
     lng = models.FloatField(null=True, blank=True)
     USERNAME_FIELD = 'phone_number'
     is_superuser = False
+    is_staff = False
 
     def __str__(self):
         return self.user.username

@@ -59,29 +59,55 @@ class ManagerSerializer(serializers.ModelSerializer):
 #         model = User
 #         fields = ('username', 'first_name', 'last_name', 'email')
 
-class RegistrationManagerSerializer(serializers.ModelSerializer):
+class RegistrationClinetSerializer(serializers.ModelSerializer):
     password = serializers.CharField(style={'input_type': 'password'}, write_only=True)
     password2 = serializers.CharField(style={'input_type': 'password'}, write_only=True)
 
     class Meta:
-        model = Manager
-        fields = ['id', 'phone_number', 'password', 'password2']
+        model = Client
+        fields = ['id','phone_number','delivery_location','lat','lng','password', 'password2']
         extra_kwargs = {
             'password': {'write_only': True}
         }
 
     def create(self, validated_data):
-        user = User.objects.create(
-            username=self.validated_data['phone_number'])
-
+        user = User.objects.create(username=self.validated_data['phone_number'])
+        password = self.validated_data['password']
+        password2 = self.validated_data['password2']
+        if password != password2:
+            raise serializers.ValidationError({'password': 'Passwords must match'})
         user.set_password(self.validated_data['password'])
         user.save()
-        token = Token.objects.create(user=user)
-        manager = Manager.objects.create(user=user, phone_number=validated_data['phone_number'],
-                                         token=token)
+        #token = Token.objects.create(user=user)
+        manager = Manager.objects.create(user=user, phone_number=validated_data['phone_number'])#,token=token
 
         manager.save()
         return user, manager
+
+    class RegistrationManagerSerializer(serializers.ModelSerializer):
+        password = serializers.CharField(style={'input_type': 'password'}, write_only=True)
+        password2 = serializers.CharField(style={'input_type': 'password'}, write_only=True)
+
+        class Meta:
+            model = Manager
+            fields = ['id', 'phone_number', 'password', 'password2']
+            extra_kwargs = {
+                'password': {'write_only': True}
+            }
+
+        def create(self, validated_data):
+            user = User.objects.create(username=self.validated_data['phone_number'])
+            password = self.validated_data['password']
+            password2 = self.validated_data['password2']
+            if password != password2:
+                raise serializers.ValidationError({'password': 'Passwords must match'})
+            user.set_password(self.validated_data['password'])
+            user.save()
+            # token = Token.objects.create(user=user)
+            manager = Manager.objects.create(user=user, phone_number=validated_data['phone_number'])  # ,token=token
+
+            manager.save()
+            return user, manager
 
     # def create(self, validated_data):
     #     user = UserSerializer.create(UserSerializer(), validated_data=user_data)
