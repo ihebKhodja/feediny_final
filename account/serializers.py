@@ -110,7 +110,9 @@ class AddClientSerializer(serializers.ModelSerializer):
         }
 
     def create(self, validated_data):
-        user = User.objects.create(username=self.validated_data['phone_number'])
+        user = User.objects.create(username=self.validated_data['phone_number'],
+                                   first_name=self.validated_data['first_name'],
+                                   last_name=self.validated_data['last_name'])
         password = self.validated_data['password']
         password2 = self.validated_data['password2']
         # if password != password2:
