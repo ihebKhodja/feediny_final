@@ -36,13 +36,11 @@ class Meal(models.Model):
     restaurant = models.ForeignKey('Restaurant', on_delete=models.CASCADE, blank=True)
     category = models.ForeignKey('Category', on_delete=models.CASCADE, blank=True)
     order = models.ForeignKey('Order', on_delete=models.CASCADE, blank=True, null=True)
-    #owner = models.ForeignKey('auth.User', related_name= 'Meal', on_delete=models.CASCADE, null=True)
+    #owner = models.ForeignKey('account.Manager', related_name= 'Meal', on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return self.name
 
-    # def perform_create(self, serializer):
-    #     serializer.save(owner=self.request.user)
 
 
 class Cart(models.Model):

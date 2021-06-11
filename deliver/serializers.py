@@ -1,7 +1,9 @@
-from rest_framework import serializers
+from rest_framework import serializers, permissions
 from .models import *
 from django.contrib.auth.models import User
-# from account.models import Manager, Client
+from account.models import Manager, Client
+
+
 
 class RestaurantSerializer(serializers.ModelSerializer):
     class Meta:
@@ -18,6 +20,7 @@ class CategorySerializer(serializers.ModelSerializer):
 class MealSerializer(serializers.ModelSerializer):
     restaurant = RestaurantSerializer()
     category = CategorySerializer()
+    #owner = serializers.ReadOnlyField(source='owner.phone_number')
 
     class Meta:
         model = Meal

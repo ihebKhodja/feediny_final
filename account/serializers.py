@@ -5,7 +5,7 @@ from .models import *
 
 
 class ManagerSerializer(serializers.ModelSerializer):
-    # restaurant = serializers.PrimaryKeyRelatedField(many=True, queryset=Meal.objects.all())
+    #meal = serializers.PrimaryKeyRelatedField(many=True, queryset=Meal.objects.all())
 
     class Meta:
         model = Manager
@@ -67,18 +67,20 @@ class ClientSerializer(serializers.ModelSerializer):
 class AddManagerSerializer(serializers.ModelSerializer):
     password = serializers.CharField(style={'input_type': 'password'}, write_only=True)
     password2 = serializers.CharField(style={'input_type': 'password'}, write_only=True)
-    # first_name = Manager.user.first_name
-    # last_name = Manager.user.last_name
+    first_name = serializers.CharField()
+    last_name = serializers.CharField()
 
     class Meta:
         model = Manager
-        fields = ['id', 'phone_number','password', 'password2']
+        fields = ['id', 'phone_number','first_name','last_name','password', 'password2']
         extra_kwargs = {
             'password': {'write_only': True}
         }
 
     def create(self, validated_data):
-        user = User.objects.create(username=self.validated_data['phone_number'])
+        user = User.objects.create(username=self.validated_data['phone_number'],
+                                   first_name=self.validated_data['first_name'],
+                                   last_name=self.validated_data['last_name'])
 
         password = self.validated_data['password']
         password2 = self.validated_data['password2']
@@ -96,10 +98,13 @@ class AddManagerSerializer(serializers.ModelSerializer):
 class AddClientSerializer(serializers.ModelSerializer):
     password = serializers.CharField(style={'input_type': 'password'}, write_only=True)
     password2 = serializers.CharField(style={'input_type': 'password'}, write_only=True)
+    first_name = serializers.CharField()
+    last_name = serializers.CharField()
+
 
     class Meta:
         model = Client
-        fields = ['id', 'phone_number', 'delivery_location', 'lat', 'lng', 'password', 'password2']
+        fields = ['id', 'phone_number','first_name','last_name','delivery_location', 'lat', 'lng', 'password', 'password2']
         extra_kwargs = {
             'password': {'write_only': True}
         }

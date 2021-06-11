@@ -25,14 +25,21 @@ class RestaurantDetail(generics.RetrieveUpdateDestroyAPIView):
 class MealCreate(generics.ListCreateAPIView):
     queryset = Meal.objects.all()
     serializer_class = MealSerializer
-    #permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    # permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    #
+    # def perform_create(self, serializer):
+    #     serializer.save(owner=self.request.user)
 
 
 class MealList(generics.RetrieveAPIView):
     queryset = Meal.objects.all()
     serializer_class = MealSerializer
-### to search for a meal by ID of the restaurant
+    # permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    #
+    # def perform_create(self, serializer):
+    #     serializer.save(owner=self.request.user)
 
+### to search for a meal by ID of the restaurant
 class MealSearch(APIView):
 
     def get_object(self, restaurant):
