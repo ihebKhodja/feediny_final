@@ -113,8 +113,8 @@ class AddClientSerializer(serializers.ModelSerializer):
         user = User.objects.create(username=self.validated_data['phone_number'])
         password = self.validated_data['password']
         password2 = self.validated_data['password2']
-        if password != password2:
-            raise serializers.ValidationError({'password': 'Passwords must match'})
+        # if password != password2:
+        #     raise serializers.ValidationError({'password': 'Passwords must match'})
         user.set_password(self.validated_data['password'])
         user.save()
         token = Token.objects.create(user=user)
