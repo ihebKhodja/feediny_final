@@ -79,11 +79,7 @@ class CartModifier(generics.RetrieveUpdateDestroyAPIView):
     queryset = Cart.objects.all()
     serializer_class = CartSerializer
 
-
-#### list of all orders
-class OrderList(generics.ListAPIView):
-    queryset = Order.objects.all()
-    serializer_class = OrderSerializer
+##### Orders
 
 #### create a new Order
 class OrderAdd(generics.CreateAPIView):
@@ -104,7 +100,7 @@ class OrderSearch(APIView):
         serializer = OrderSerializer(order, many=True)
         return Response(serializer.data)
 
-
+#### ### search for Order by Client ID
 class OrderClientSearch(APIView):
     def get_object(self, client):
         try:
