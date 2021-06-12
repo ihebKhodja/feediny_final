@@ -100,6 +100,9 @@ class OrderSearch(APIView):
         serializer = OrderSerializer(order, many=True)
         return Response(serializer.data)
 
+
+
+
 #### ### search for Order by Client ID
 class OrderClientSearch(APIView):
     def get_object(self, client):
