@@ -44,6 +44,10 @@ class Cart(models.Model):
     price = models.IntegerField()
     meal = models.ManyToManyField('Meal')
 
+    def calculate_price(self):
+        self.price += self.meal.price
+        return self.price
+
 
 class Order(models.Model):
     CHOICES = (
@@ -52,8 +56,7 @@ class Order(models.Model):
         ('AC', 'accepted'),
         ('RF', 'refused'),
     )
-    date = models.DateTimeField(auto_now=False, auto_now_add=False)
-    state = models.CharField(max_length=100)
+    date = models.DateField(auto_now=False, auto_now_add=True)
     restaurant = models.ManyToManyField('Restaurant')
     client = models.ForeignKey('account.Client', on_delete=models.PROTECT, null=True)
     cart = models.ForeignKey('Cart', on_delete=models.PROTECT, null=True)
