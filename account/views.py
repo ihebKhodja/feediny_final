@@ -6,7 +6,7 @@ from .models import *
 from .serializers import *
 from django.contrib.auth.models import User
 from rest_framework import generics, status
-from rest_framework import generics, permissions
+from rest_framework import generics
 from rest_framework.response import Response
 from .serializers import *
 
@@ -15,23 +15,29 @@ class ManagerList(generics.ListAPIView):
     queryset = Manager.objects.all()
     serializer_class = ManagerSerializer
 
+
 class UserList(generics.ListAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+
 
 class ManagerDetail(generics.RetrieveAPIView):
     queryset = Manager.objects.all()
     serializer_class = ManagerSerializer
 
+
 class ClientList(generics.ListAPIView):
     queryset = Client.objects.all()
     serializer_class = ClientSerializer
+
 
 class ClientDetail(generics.RetrieveAPIView):
     queryset = Client.objects.all()
     serializer_class = ClientSerializer
 
+
 ##Register API
+
 
 @api_view(['POST', ])
 def RegisterManager(request):
@@ -51,6 +57,7 @@ def RegisterClient(request):
         return Response(status=status.HTTP_201_CREATED)
     else:
         return Response(serializer.errors)
+
 
 @api_view(['POST', ])
 def LoginUser(request):
