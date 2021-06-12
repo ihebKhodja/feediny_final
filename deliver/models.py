@@ -11,6 +11,7 @@ class Restaurant(models.Model):
     lat = models.FloatField(blank=True, null=True)
     lng = models.FloatField(blank=True, null=True)
 
+
     def __str__(self):
         return self.name
 
@@ -36,7 +37,7 @@ class Meal(models.Model):
     restaurant = models.ForeignKey('Restaurant', on_delete=models.CASCADE, blank=True)
     category = models.ForeignKey('Category', on_delete=models.CASCADE, blank=True)
     order = models.ForeignKey('Order', on_delete=models.CASCADE, blank=True, null=True)
-    #owner = models.ForeignKey('account.Manager', related_name= 'Meal', on_delete=models.CASCADE, null=True)
+
 
     def __str__(self):
         return self.name

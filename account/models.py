@@ -9,6 +9,7 @@ class Manager(models.Model):
     is_superuser = False
     is_staff = False
 
+
     def __str__(self):
         return self.user.username
 

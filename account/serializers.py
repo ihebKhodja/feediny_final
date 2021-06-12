@@ -5,7 +5,7 @@ from .models import *
 
 
 class ManagerSerializer(serializers.ModelSerializer):
-    #meal = serializers.PrimaryKeyRelatedField(many=True, queryset=Meal.objects.all())
+
 
     class Meta:
         model = Manager

@@ -4,19 +4,17 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny
 from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from .models import *
 from account.models import *
 from .serializers import *
 from django.contrib.auth.models import User
-from .permissions import IsOwnerOrReadOnly
 
 
 #### Restaurant
 class RestaurantList(generics.ListCreateAPIView):
     queryset = Restaurant.objects.all()
     serializer_class = RestaurantSerializer
-    permission_classes(AllowAny)
+
 
 class RestaurantDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Restaurant.objects.all()
@@ -28,19 +26,12 @@ class RestaurantDetail(generics.RetrieveUpdateDestroyAPIView):
 class MealCreate(generics.ListCreateAPIView):
     queryset = Meal.objects.all()
     serializer_class = MealSerializer
-    # permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-    #
-    # def perform_create(self, serializer):
-    #     serializer.save(owner=self.request.user)
 
 
 class MealList(generics.RetrieveAPIView):
     queryset = Meal.objects.all()
     serializer_class = MealSerializer
-    # permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-    #
-    # def perform_create(self, serializer):
-    #     serializer.save(owner=self.request.user)
+
 
 ### to search for a meal by ID of the restaurant
 class MealSearch(APIView):
