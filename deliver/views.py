@@ -78,3 +78,40 @@ class CartAdd(generics.CreateAPIView):
 class CartModifier(generics.RetrieveUpdateDestroyAPIView):
     queryset = Cart.objects.all()
     serializer_class = CartSerializer
+
+
+#### list of all orders
+class OrderList(generics.ListAPIView):
+    queryset = Order.objects.all()
+    serializer_class = OrderSerializer
+
+#### create a new Order
+class OrderAdd(generics.CreateAPIView):
+    queryset = Order.objects.all()
+    serializer_class = OrderSerializer
+
+
+### search for Order by Restaurant ID
+class OrderSearch(APIView):
+    def get_object(self, restaurant):
+        try:
+            return Order.objects.filter(restaurant=restaurant)
+        except Order.DoesNotExist:
+            raise Http404
+
+    def get(self, request, restaurant, format=None):
+        order = self.get_object(restaurant)
+        serializer = OrderSerializer(order, many=True)
+        return Response(serializer.data)
+
+class OrderClientSearch(APIView):
+    def get_object(self, client):
+        try:
+            return Order.objects.filter(client=client)
+        except Order.DoesNotExist:
+            raise Http404
+
+    def get(self, request, client, format=None):
+        order = self.get_object(client)
+        serializer = OrderSerializer(order, many=True)
+        return Response(serializer.data)

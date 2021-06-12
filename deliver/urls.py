@@ -12,6 +12,7 @@ urlpatterns = [
     path('cart/', views.CartList.as_view(), name='CartList'),### get list
     path('cart/add/', views.CartAdd.as_view(), name='AddtoCart'),#### post
     path('cart/<int:pk>', views.CartModifier.as_view(), name='Update_Delete_Retrieve_Cart'),#### post delete get methods
-
+    path('order/<int:restaurant>', views.OrderSearch.as_view(), name='ByRestaurantId_order'),#### orders by restaurant ID
+    path('order/client/<int:client>', views.OrderClientSearch.as_view(), name='ByRestaurantId_order_client'),#### orders by restaurant ID
 
 ]

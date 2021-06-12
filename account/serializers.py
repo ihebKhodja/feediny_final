@@ -5,8 +5,6 @@ from .models import *
 
 
 class ManagerSerializer(serializers.ModelSerializer):
-
-
     class Meta:
         model = Manager
         fields = ['id', 'phone_number']

@@ -5,7 +5,6 @@ from account.models import Manager, Client
 
 
 class RestaurantSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Restaurant
         fields = ['id', 'name', 'address', 'rating', 'photo', 'description', 'lat', 'lng']
@@ -26,13 +25,15 @@ class MealSerializer(serializers.ModelSerializer):
         fields = ['id', 'name', 'photo', 'ingredients', 'price', 'restaurant', 'category']
 
 
-class OrderSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Order
-        fields = ['id', 'date', 'state', 'meal']
-
-
 class CartSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cart
         fields = ['id', 'restaurant', 'price', 'meal']
+
+
+class OrderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Order
+        fields = ['id', 'date', 'state', 'restaurant', 'client', 'cart', 'status']
+
+
