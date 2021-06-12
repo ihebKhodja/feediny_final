@@ -23,12 +23,6 @@ class Category(models.Model):
         return self.name
 
 
-class Order(models.Model):
-    date = models.DateTimeField(auto_now=False, auto_now_add=False)
-    state = models.CharField(max_length=2)
-    restaurant = models.ForeignKey('Restaurant', on_delete=models.PROTECT, null=True)
-
-
 class Meal(models.Model):
     name = models.CharField(max_length=255)
     photo = models.ImageField(upload_to='photos/',blank=True)
@@ -49,4 +43,18 @@ class Cart(models.Model):
     client = models.ForeignKey('account.Client', on_delete=models.CASCADE, null=True)
     price = models.IntegerField()
     meal = models.ManyToManyField('Meal')
-#####
+
+
+class Order(models.Model):
+    CHOICES = (
+        ('DL', 'delivered'),
+        ('PN', 'pending'),
+        ('AC', 'accepted'),
+        ('RF', 'refused'),
+    )
+    date = models.DateTimeField(auto_now=False, auto_now_add=False)
+    state = models.CharField(max_length=100)
+    restaurant = models.ManyToManyField('Restaurant')
+    client = models.ForeignKey('account.Client', on_delete=models.PROTECT, null=True)
+    cart = models.ForeignKey('Cart', on_delete=models.PROTECT, null=True)
+    status = models.CharField(max_length=100, choices= CHOICES, null=True)
