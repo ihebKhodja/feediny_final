@@ -41,7 +41,7 @@ class Meal(models.Model):
 class Cart(models.Model):
     restaurant = models.ForeignKey('Restaurant', on_delete=models.CASCADE, null=True)
     client = models.ForeignKey('account.Client', on_delete=models.CASCADE, null=True)
-    price = models.IntegerField()
+    price = models.IntegerField(blank=True)
     meal = models.ManyToManyField('Meal')
 
     def calculate_price(self):
