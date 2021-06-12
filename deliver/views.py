@@ -2,6 +2,8 @@ from django.http import Http404
 from rest_framework import generics, permissions
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from .models import *
 from account.models import *
 from .serializers import *
@@ -55,9 +57,11 @@ class MealSearch(APIView):
 
 
 class MealDetail(generics.RetrieveUpdateDestroyAPIView):
+
     queryset = Meal.objects.all()
     serializer_class = MealSerializer
-    #permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
 
 #### Category
 class CategoryList(generics.ListCreateAPIView):
@@ -82,17 +86,3 @@ class CartAdd(generics.CreateAPIView):
 class CartModifier(generics.RetrieveUpdateDestroyAPIView):
     queryset = Cart.objects.all()
     serializer_class = CartSerializer
-####
-##### User
-# class ManagerList(generics.ListAPIView):
-#     queryset = Manager.objects.all()
-#     serializer_class = ManagerSerializer
-#
-#
-# class ManagerDetail(generics.CreateAPIView):
-#     queryset = Manager.objects.all()
-#     serializer_class = ManagerSerializer
-#
-# class ClientCreate(generics.CreateAPIView):
-#     queryset = Client.objects.all()
-#     serializer_class = ClientSerializer

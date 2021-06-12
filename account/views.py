@@ -8,7 +8,6 @@ from django.contrib.auth.models import User
 from rest_framework import generics, status
 from rest_framework import generics, permissions
 from rest_framework.response import Response
-
 from .serializers import *
 
 
@@ -16,6 +15,9 @@ class ManagerList(generics.ListAPIView):
     queryset = Manager.objects.all()
     serializer_class = ManagerSerializer
 
+class UserList(generics.ListAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
 
 class ManagerDetail(generics.RetrieveAPIView):
     queryset = Manager.objects.all()
@@ -62,17 +64,3 @@ def LoginUser(request):
     else:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
-# class RegisterManager(generics.GenericAPIView):
-#     serializer_class = RegistrationManagerSerializer
-#
-#     def post(self, request, *args, **kwargs):
-#         serializer = self.get_serializer(data=request.data)
-#         if serializer.is_valid(raise_exception=True):
-# 			manager = serializer.save()
-#
-# 			return Response({
-# 				"manager": RegistrationManagerSerializer(manager, context=self.get_serializer_context()).data,
-# 				"token": AuthToken.objects.create(manager)[1]})
-#
-# 		else:
-# 			return Response(serializer.errors)

@@ -18,51 +18,12 @@ class ClientSerializer(serializers.ModelSerializer):
         fields = ['id', 'phone_number', 'delivery_location', 'lat', 'lng']
 
 
-#
-#
-# class ManagerSerializer(serializers.ModelSerializer):
-#     """A serializer for our user profile objects."""
-#
-#     class Meta:
-#         model = models.Manager
-#         fields = ('id', 'email', 'name', 'password')
-#         extra_kwargs = {'password': {'write_only': True}}
-#
-#     def create(self, validated_data):
-#
-#         user = models.Manager(
-#             email=validated_data['email'],
-#             name=validated_data['name']
-#         )
-#
-#         user.set_password(validated_data['password'])
-#         user.save()
-#
-#         return user
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = '__all__'
 
 
-# class ClientSerializer(serializers.ModelSerializer):
-# client= Client(user=user, email= email, username= username)
-# class Meta:
-#     model = Client
-#     fileds = ['user.email', 'user.username','user.password']
-#     extra_kwargs = {
-#         'password': {'write_only': True}
-#     },
-#
-#     def save(self):
-#         client = Client(
-#             email=self.validated_data['user.email'],
-#             username=self.validated_data['user.username'],
-#         )
-#         password=self.validated_data['user.password']
-#         client.set_password(password)
-#         client.save()
-#         return client
-# class UserSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = User
-#         fields = ('username', 'first_name', 'last_name', 'email')
 
 class AddManagerSerializer(serializers.ModelSerializer):
     password = serializers.CharField(style={'input_type': 'password'}, write_only=True)
@@ -127,8 +88,3 @@ class AddClientSerializer(serializers.ModelSerializer):
         client.save()
         return client
 
-# def create(self, validated_data):
-#     user = UserSerializer.create(UserSerializer(), validated_data=user_data)
-#     manager = Manager.objects.update_or_create(user=user,subject_major=validated_data.pop('subject_major'))
-#     manager.save()
-#     return manager
