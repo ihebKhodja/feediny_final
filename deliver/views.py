@@ -86,8 +86,7 @@ class AddMealToCart(APIView):##### add new meal to cart
 
     def post(self, request, pk, fomart=None):
         cart = self.get_object(pk)
-
-        cart.meal.add(request)
+        cart.meal.add(request.data)
         cart.save()
         serializer = CartSerializer(data=cart)
         if serializer.is_valid():
