@@ -36,3 +36,4 @@ sync==1.0.0
 Jinja2==2.11.2
 boto3==1.17.90
 cloudinary==1.25
+django-cloudinary-storage==0.3.0
