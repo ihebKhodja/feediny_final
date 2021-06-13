@@ -85,12 +85,11 @@ class AddMealToCart(APIView):##### add new meal to cart
             raise Http404
 
     def post(self, request, pk, fomart=None):
-        newCart = self.get_object(pk)
-        newMeal = newCart.meal
-        cart = Cart()
-        cart.meal.add(newMeal)
+        cart = self.get_object(pk)
+        meal = request.meal
+        cart.meal.add(meal)
         cart.save()
-        serializer = CartSerializer(newCart, data=cart)
+        serializer = CartSerializer(cart, data=cart)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
