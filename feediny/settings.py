@@ -149,12 +149,12 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 ### ading cloudinary config
-cloudinary.config(
-  cloud_name = "dl8t4qxvg",
-  api_key = "131177756898182",
-  api_secret = "x_k3t-zyHmuc0z0KvyRqYYflAhY"
-)
 
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'dl8t4qxvg',
+    'API_KEY': '131177756898182',
+    'API_SECRET': 'x_k3t-zyHmuc0z0KvyRqYYflAhY'
+}
 
 
 # Default primary key field type
