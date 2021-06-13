@@ -44,9 +44,6 @@ class Cart(models.Model):
     price = models.IntegerField(null=True, blank=True)
     meal = models.ManyToManyField('Meal')
 
-    def __str__(self):
-        return self.meal
-
 
 
 
