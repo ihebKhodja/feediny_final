@@ -26,7 +26,7 @@ class Category(models.Model):
 class Meal(models.Model):
     name = models.CharField(max_length=255)
     photo = models.ImageField(upload_to='photos/',blank=True)
-    ingredients = models.TextField()
+    ingredients = models.TextField(blank=True)
     price = models.FloatField()
     restaurant = models.ForeignKey('Restaurant', on_delete=models.CASCADE, blank=True)
     category = models.ForeignKey('Category', on_delete=models.CASCADE, blank=True)
