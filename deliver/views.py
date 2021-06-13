@@ -84,11 +84,10 @@ class AddMealToCart(APIView):##### add new meal to cart
         except Cart.DoesNotExist:
             raise Http404
 
-    def put(self, request, pk, fomart=None):
+    def post(self, request, pk, fomart=None):
         newCart = self.get_object(pk)
         newMeal = newCart.meal
         cart = Cart()
-        cart.price.add()
         cart.meal.add(newMeal)
         serializer = CartSerializer(newCart, data=cart)
         if serializer.is_valid():
