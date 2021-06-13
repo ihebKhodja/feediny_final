@@ -1,5 +1,5 @@
 from django.http import Http404
-from rest_framework import generics, permissions
+from rest_framework import generics, permissions, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny
@@ -74,6 +74,29 @@ class CartList(generics.ListAPIView):
 class CartAdd(generics.CreateAPIView):
     queryset = Cart.objects.all()
     serializer_class = CartSerializer
+
+
+class AddMealToCart(APIView):##### add new meal to cart
+
+    def get_object(self, pk):
+        try:
+            return Cart.objects.get(pk=pk)
+        except Cart.DoesNotExist:
+            raise Http404
+
+    def put(self, request, pk, fomart=None):
+        newCart = self.get_object(pk)
+        newMeal = newCart.meal
+        cart = Cart()
+        cart.price.add()
+        cart.meal.add(newMeal)
+        serializer = CartSerializer(newCart, data=cart)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
 
 class CartModifier(generics.RetrieveUpdateDestroyAPIView):
     queryset = Cart.objects.all()

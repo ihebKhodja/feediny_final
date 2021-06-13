@@ -1,6 +1,6 @@
 from django.db import models
 from account.models import Client, Manager
-
+from cloudinary.models import CloudinaryField
 
 class Restaurant(models.Model):
     name = models.CharField(max_length=255)
@@ -44,9 +44,10 @@ class Cart(models.Model):
     price = models.IntegerField(null=True, blank=True)
     meal = models.ManyToManyField('Meal')
 
-    def calculate_price(self):
-        self.price += self.meal.price
-        return self.price
+    def __str__(self):
+        return self.name
+
+
 
 
 class Order(models.Model):
