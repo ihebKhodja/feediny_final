@@ -45,7 +45,7 @@ class Cart(models.Model):
     meal = models.ManyToManyField('Meal')
 
     def __str__(self):
-        return self.id
+        return self.meal
 
 
 
