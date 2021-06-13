@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'cloudinary_storage',
     'django.contrib.staticfiles',
     'deliver.apps.DeliverConfig',
     'account.apps.AccountConfig',
@@ -45,7 +46,7 @@ INSTALLED_APPS = [
     'knox',
     'rest_framework.authtoken',
     'cloudinary',
-    'cloudinary_storage',
+
 
 ]
 
