@@ -52,7 +52,6 @@ class MealDetail(generics.RetrieveUpdateDestroyAPIView):
 
     queryset = Meal.objects.all()
     serializer_class = MealSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
 
 #### Category
@@ -87,6 +86,7 @@ class AddMealToCart(APIView):##### add new meal to cart
     def post(self, request, pk, fomart=None):
         cart = self.get_object(pk)
         cart.meal.add(request.data['meal'])
+
         cart.save()
         serializer = CartSerializer(data=cart, many=True)
         if serializer.is_valid():

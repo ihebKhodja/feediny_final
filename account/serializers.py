@@ -9,17 +9,17 @@ class ManagerSerializer(serializers.ModelSerializer):
         model = Manager
         fields = ['id', 'phone_number']
 
-
-class ClientSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Client
-        fields = ['id', 'phone_number', 'delivery_location', 'lat', 'lng']
-
-
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = '__all__'
+
+
+class ClientSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Client
+        fields = ['id','user', 'phone_number', 'delivery_location', 'lat', 'lng']
+
 
 
 

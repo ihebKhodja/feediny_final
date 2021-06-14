@@ -1,4 +1,5 @@
 from django.contrib.auth import authenticate, login
+from django.http import Http404
 from rest_framework.decorators import api_view
 from rest_framework.templatetags.rest_framework import data
 from rest_framework.views import APIView
@@ -31,9 +32,17 @@ class ClientList(generics.ListAPIView):
     serializer_class = ClientSerializer
 
 
-class ClientDetail(generics.RetrieveAPIView):
-    queryset = Client.objects.all()
-    serializer_class = ClientSerializer
+class ClientDetail(APIView):
+    def get_object(self, pk):
+        try:
+            return Client.objects.filter(user=pk)
+        except Order.DoesNotExist:
+            raise Http404
+
+    def get(self, request, pk, format=None):
+        client = self.get_object(pk)
+        serializer = ClientSerializer(client, many=True)
+        return Response(serializer.data)
 
 
 ##Register API
