@@ -26,6 +26,7 @@ class MealSerializer(serializers.ModelSerializer):
 
 
 class CartSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = Cart
         fields = ['id', 'restaurant', 'price', 'meal']
