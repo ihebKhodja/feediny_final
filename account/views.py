@@ -23,8 +23,16 @@ class UserList(generics.ListAPIView):
 
 
 class ManagerDetail(generics.RetrieveAPIView):
-    queryset = Manager.objects.all()
-    serializer_class = ManagerSerializer
+    def get_object(self, pk):
+        try:
+            return Manager.objects.filter(user=pk)
+        except Order.DoesNotExist:
+            raise Http404
+
+    def get(self, request, pk, format=None):
+        manager = self.get_object(pk)
+        serializer = ManagerSerializer(manager, many=True)
+        return Response(serializer.data)
 
 
 class ClientList(generics.ListAPIView):
