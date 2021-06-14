@@ -7,7 +7,7 @@ from .models import *
 class ManagerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Manager
-        fields = ['id', 'phone_number']
+        fields = ['id','user', 'phone_number']
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
