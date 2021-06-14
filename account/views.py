@@ -25,13 +25,13 @@ class UserList(generics.ListAPIView):
 class ManagerDetail(generics.RetrieveAPIView):
     def get_object(self, pk):
         try:
-            return Manager.objects.filter(user=pk)
+            return Manager.objects.get(user=pk)
         except Order.DoesNotExist:
             raise Http404
 
     def get(self, request, pk, format=None):
         manager = self.get_object(pk)
-        serializer = ManagerSerializer(manager, many=True)
+        serializer = ManagerSerializer(manager)
         return Response(serializer.data)
 
 
@@ -43,13 +43,13 @@ class ClientList(generics.ListAPIView):
 class ClientDetail(APIView):
     def get_object(self, pk):
         try:
-            return Client.objects.filter(user=pk)
+            return Client.objects.get(user=pk)
         except Order.DoesNotExist:
             raise Http404
 
     def get(self, request, pk, format=None):
         client = self.get_object(pk)
-        serializer = ClientSerializer(client, many=True)
+        serializer = ClientSerializer(client)
         return Response(serializer.data)
 
 
