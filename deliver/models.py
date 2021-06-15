@@ -59,7 +59,7 @@ class Order(models.Model):
         ('RF', 'refused'),
     )
     date = models.DateField(auto_now=False, auto_now_add=True)
-    restaurant = models.ManyToManyField('Restaurant')
+    restaurant = models.ManyToManyField('Restaurant', blank=True)
     client = models.ForeignKey('account.Client',on_delete=models.CASCADE, null=True)
     cart = models.ForeignKey('Cart', on_delete=models.PROTECT, null=True)
     status = models.CharField(max_length=100, choices= CHOICES, null=True)

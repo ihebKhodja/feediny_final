@@ -76,21 +76,29 @@ class CartList(generics.ListAPIView):
     queryset = Cart.objects.all()
     serializer_class = CartSerializer
 
-class CartAdd(generics.CreateAPIView):
-    queryset = Cart.objects.all()
-    serializer_class = CartSerializer
+# class CartAdd(generics.CreateAPIView):
+#      queryset = Cart.objects.all()
+#      serializer_class = CartSerializer
 
-# class CartAdd(APIView):
-#     serializer_class = CartSerializer
-#
-#     def post(self, request, *args, **kwargs):
-#         data = request.data
-#         meal_obj = Meal.objects.get(id=data["meal"])
-#
-#         cart = Cart.objects.create(meal= meal_obj.id, restaurant =meal_obj.restaurant, price= meal_obj.price)
-#         cart.save()
-#         serializer = CartSerializer(cart)
-#         return Response(serializer.data)
+class CartAdd(APIView):
+
+    def get_object(self, pk):
+        try:
+            return Meal.objects.get(pk=pk)
+        except Cart.DoesNotExist:
+            raise Http404
+
+    def post(self, request, *args, **kwargs):
+        data = request.data
+        meal_obj = self.get_object(data["meal"])
+        cart = Cart.objects.create()
+        cart.meal.add(meal_obj)
+        cart.restaurant.add(meal_obj.restaurant)
+        cart.price = meal_obj.price
+        cart.client_id = data["client"]
+        serializer = CartSerializer(cart)
+
+        return Response(serializer.data)
 
 class AddMealToCart(APIView):##### add new meal to cart
 
@@ -165,12 +173,8 @@ class OrderSearch(APIView):
         return Response(serializer.data)
 
 
-
-
 #### ### search for Order by Client_user ID
 class OrderClientSearch(APIView):
-
-
     def get_object(self, client):
         try:
             return Order.objects.filter(client__user_id=client)
