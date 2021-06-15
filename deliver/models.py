@@ -1,4 +1,6 @@
 from django.db import models
+from django.db.models import ForeignKey
+
 from account.models import Client, Manager
 from cloudinary.models import CloudinaryField
 
@@ -37,14 +39,16 @@ class Meal(models.Model):
         return self.name
 
 
-
 class Cart(models.Model):
     restaurant = models.ForeignKey('Restaurant', on_delete=models.CASCADE, null=True)
     client = models.ForeignKey('account.Client', on_delete=models.CASCADE, null=True)
-    price = models.IntegerField(null=True, blank=True)
+    total_price = models.FloatField(blank=True, null=True)
     meal = models.ManyToManyField('Meal')
 
 
+    # def cart_price(self):
+    #     self.price = self.meal.price
+    #     return self.price
 
 
 class Order(models.Model):

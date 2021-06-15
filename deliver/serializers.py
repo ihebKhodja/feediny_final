@@ -26,10 +26,13 @@ class MealSerializer(serializers.ModelSerializer):
 
 
 class CartSerializer(serializers.ModelSerializer):
-    #meal = MealSerializer(many=True)
+    #total_price = serializers.SerializerMethodField('calculate_total_price')
     class Meta:
         model = Cart
-        fields = ['id', 'restaurant', 'price', 'meal']
+        fields = ['id', 'restaurant', 'total_price', 'meal']
+
+
+
 
 
 class OrderSerializer(serializers.ModelSerializer):

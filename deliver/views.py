@@ -83,16 +83,17 @@ class AddMealToCart(APIView):##### add new meal to cart
         except Cart.DoesNotExist:
             raise Http404
 
+
     def post(self, request, pk, fomart=None):
         cart = self.get_object(pk)
-        cart.meal.add(request.data['meal'])
-
+        meal_obj = Meal.objects.get(id=request.data["meal"])
+        cart.meal.add(meal_obj)
         cart.save()
-        serializer = CartSerializer(data=cart, many=True)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        serializer = CartSerializer(cart)
+        # if serializer.is_valid():
+        #     serializer.save()
+        return Response(serializer.data)
+        # return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class deleteMealCart(APIView):##### add new meal to cart
@@ -105,13 +106,12 @@ class deleteMealCart(APIView):##### add new meal to cart
 
     def delete(self, request, pk, fomart=None):
         cart = self.get_object(pk)
-        cart.meal.remove(request.data['meal'])
+        meal_obj = Meal.objects.get(id=request.data["meal"])
+        cart.meal.remove(meal_obj)
         cart.save()
-        serializer = CartSerializer(data=cart, many=True)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        serializer = CartSerializer(cart)
+        return Response(serializer.data)
+
 
 
 
