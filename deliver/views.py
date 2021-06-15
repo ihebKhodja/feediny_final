@@ -8,6 +8,7 @@ from .models import *
 from account.models import *
 from .serializers import *
 from django.contrib.auth.models import User
+from account.models import Client
 
 
 #### Restaurant
@@ -156,8 +157,10 @@ class OrderSearch(APIView):
 
 
 
-#### ### search for Order by Client ID
+#### ### search for Order by Client_user ID
 class OrderClientSearch(APIView):
+
+
     def get_object(self, client):
         try:
             return Order.objects.filter(client=client)
