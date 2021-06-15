@@ -7,7 +7,7 @@ from account.models import Manager, Client
 class RestaurantSerializer(serializers.ModelSerializer):
     class Meta:
         model = Restaurant
-        fields = ['id', 'name', 'address', 'rating', 'photo', 'description', 'lat', 'lng']
+        fields = ['id', 'name', 'address', 'rating', 'photo', 'description', 'lat', 'lng','manager']
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -26,12 +26,9 @@ class MealSerializer(serializers.ModelSerializer):
 
 
 class CartSerializer(serializers.ModelSerializer):
-    #total_price = serializers.SerializerMethodField('calculate_total_price')
     class Meta:
         model = Cart
         fields = ['id', 'restaurant', 'price', 'meal','client']
-
-
 
 
 

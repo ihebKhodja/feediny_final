@@ -173,7 +173,7 @@ class OrderClientSearch(APIView):
 
     def get_object(self, client):
         try:
-            return Order.objects.filter(client=client)
+            return Order.objects.filter(client__user_id=client)
         except Order.DoesNotExist:
             raise Http404
 
