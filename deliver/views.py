@@ -74,6 +74,17 @@ class CartAdd(generics.CreateAPIView):
     queryset = Cart.objects.all()
     serializer_class = CartSerializer
 
+# class CartAdd(APIView):
+#     serializer_class = CartSerializer
+#
+#     def post(self, request, *args, **kwargs):
+#         data = request.data
+#         meal_obj = Meal.objects.get(id=data["meal"])
+#
+#         cart = Cart.objects.create(meal= meal_obj.id, restaurant =meal_obj.restaurant, price= meal_obj.price)
+#         cart.save()
+#         serializer = CartSerializer(cart)
+#         return Response(serializer.data)
 
 class AddMealToCart(APIView):##### add new meal to cart
 
@@ -87,7 +98,9 @@ class AddMealToCart(APIView):##### add new meal to cart
     def post(self, request, pk, fomart=None):
         cart = self.get_object(pk)
         meal_obj = Meal.objects.get(id=request.data["meal"])
+        restaurant_obj = meal_obj.restaurant
         cart.meal.add(meal_obj)
+        cart.restaurant.add(restaurant_obj)
         cart.save()
         serializer = CartSerializer(cart)
         # if serializer.is_valid():
@@ -107,12 +120,12 @@ class deleteMealCart(APIView):##### add new meal to cart
     def delete(self, request, pk, fomart=None):
         cart = self.get_object(pk)
         meal_obj = Meal.objects.get(id=request.data["meal"])
+        restaurant_obj = meal_obj.restaurant
         cart.meal.remove(meal_obj)
+        cart.restaurant.remove(restaurant_obj)
         cart.save()
         serializer = CartSerializer(cart)
         return Response(serializer.data)
-
-
 
 
 class CartModifier(generics.RetrieveUpdateDestroyAPIView):
