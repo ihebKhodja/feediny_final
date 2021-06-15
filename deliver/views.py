@@ -136,6 +136,11 @@ class CartModifier(generics.RetrieveUpdateDestroyAPIView):
 ##### Orders
 
 #### create a new Order
+
+class OrderList(generics.ListAPIView):
+    queryset = Order.objects.all()
+    serializer_class = OrderSerializer
+
 class OrderAdd(generics.CreateAPIView):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer

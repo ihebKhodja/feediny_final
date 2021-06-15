@@ -14,6 +14,7 @@ urlpatterns = [
     path('cart/add/<int:pk>', views.AddMealToCart.as_view(), name='AddMealtoCart'),  #### add meal to cart
     path('cart/delete/<int:pk>', views.deleteMealCart.as_view(), name='deleteMealfromCart'),  #### delete meal from cart
     path('cart/<int:pk>', views.CartModifier.as_view(), name='Update_Delete_Retrieve_Cart'),#### post delete get methods
+    path('order/list/', views.OrderList.as_view(), name='ListOrder'),
     path('order/add/', views.OrderAdd.as_view(), name='AddtoOrder'),  #### post
     path('order/<int:restaurant>', views.OrderSearch.as_view(), name='ByRestaurantId_order'),#### orders by restaurant ID
     path('order/client/<int:client>', views.OrderClientSearch.as_view(), name='ByRestaurantId_order_client'),#### orders by client ID

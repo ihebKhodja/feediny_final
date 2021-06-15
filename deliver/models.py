@@ -41,7 +41,7 @@ class Meal(models.Model):
 
 class Cart(models.Model):
     restaurant = models.ManyToManyField('Restaurant')
-    client = models.ForeignKey('account.Client', to_field="user",db_column="client", on_delete=models.CASCADE, null=True)
+    client = models.ForeignKey('account.Client', to_field="user", db_column="client", on_delete=models.CASCADE, null=True)
     price = models.FloatField(blank=True, null=True)
     meal = models.ManyToManyField('Meal')
 
@@ -60,6 +60,6 @@ class Order(models.Model):
     )
     date = models.DateField(auto_now=False, auto_now_add=True)
     restaurant = models.ManyToManyField('Restaurant')
-    client = models.ForeignKey('account.Client',to_field="user",db_column="client", on_delete=models.PROTECT, null=True)
+    client = models.ForeignKey('account.Client',to_field="user", db_column="client", on_delete=models.PROTECT, null=True)
     cart = models.ForeignKey('Cart', on_delete=models.PROTECT, null=True)
     status = models.CharField(max_length=100, choices= CHOICES, null=True)
