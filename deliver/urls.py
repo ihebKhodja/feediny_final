@@ -4,7 +4,8 @@ from . import views
 app_name = 'deliver'
 
 urlpatterns = [
-    path('restaurant/', views.RestaurantList.as_view(), name='c_restaurant'),  # list create restaurant
+    path('restaurant/', views.RestaurantList.as_view(), name='list_restaurant'),  # list create restaurant
+    path('restaurant/add/', views.RestaurantCreate.as_view(), name='create_restaurant'),
     path('restaurant/<int:pk>', views.RestaurantDetail.as_view(), name='r_u_d_restaurant'),# retrieve update delete restaurant
     path('meal/', views.MealCreate.as_view(), name='create_meal'),
     path('meal/list/<int:pk>', views.MealList.as_view(), name='listByIdMeal'),

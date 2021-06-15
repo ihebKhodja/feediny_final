@@ -8,11 +8,11 @@ class Restaurant(models.Model):
     name = models.CharField(max_length=255)
     address = models.CharField(max_length=512)
     rating = models.IntegerField()
-    photo = models.ImageField(upload_to='photos/',blank=True)
+    photo = models.CharField(max_length=255,blank=True)
     description = models.TextField(blank=True)
     lat = models.FloatField(blank=True, null=True)
     lng = models.FloatField(blank=True, null=True)
-
+    manager = models.ForeignKey('account.Manager', on_delete=models.CASCADE,null=True)
 
     def __str__(self):
         return self.name
@@ -27,7 +27,7 @@ class Category(models.Model):
 
 class Meal(models.Model):
     name = models.CharField(max_length=255)
-    photo = models.ImageField(upload_to='photos/',blank=True)
+    photo = models.CharField(max_length=255,blank=True)
     ingredients = models.TextField(blank=True)
     price = models.FloatField()
     restaurant = models.ForeignKey('Restaurant', on_delete=models.CASCADE, blank=True)
@@ -41,7 +41,7 @@ class Meal(models.Model):
 
 class Cart(models.Model):
     restaurant = models.ManyToManyField('Restaurant')
-    client = models.ForeignKey('account.Client',to_field="user" , on_delete=models.CASCADE, null=True)
+    client = models.ForeignKey('account.Client', on_delete=models.CASCADE, null=True)
     price = models.FloatField(blank=True, null=True)
     meal = models.ManyToManyField('Meal')
 
@@ -60,7 +60,6 @@ class Order(models.Model):
     )
     date = models.DateField(auto_now=False, auto_now_add=True)
     restaurant = models.ManyToManyField('Restaurant')
-    client = models.ForeignKey('account.Client', to_field="user" ,on_delete=models.CASCADE, null=True)
-    #client = models.ForeignKey('account.Client',to_field="user", db_column="client", on_delete=models.PROTECT, null=True)
+    client = models.ForeignKey('account.Client',on_delete=models.CASCADE, null=True)
     cart = models.ForeignKey('Cart', on_delete=models.PROTECT, null=True)
     status = models.CharField(max_length=100, choices= CHOICES, null=True)

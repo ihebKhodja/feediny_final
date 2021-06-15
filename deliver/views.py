@@ -12,7 +12,12 @@ from account.models import Client
 
 
 #### Restaurant
-class RestaurantList(generics.ListCreateAPIView):
+class RestaurantList(generics.ListAPIView):
+    queryset = Restaurant.objects.all()
+    serializer_class = RestaurantSerializer
+
+
+class RestaurantCreate(generics.CreateAPIView):
     queryset = Restaurant.objects.all()
     serializer_class = RestaurantSerializer
 
