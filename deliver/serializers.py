@@ -7,7 +7,7 @@ from account.models import Manager, Client
 class RestaurantSerializer(serializers.ModelSerializer):
     class Meta:
         model = Restaurant
-        fields = ['id', 'name', 'address', 'rating', 'photo', 'description', 'lat', 'lng']
+        fields = ['id', 'name', 'address', 'rating', 'photo', 'description', 'lat', 'lng','manager']
 
 
 class CategorySerializer(serializers.ModelSerializer):
