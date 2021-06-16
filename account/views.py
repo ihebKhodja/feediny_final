@@ -17,9 +17,9 @@ class ManagerList(generics.ListAPIView):
     serializer_class = ManagerSerializer
 
 
-class UserList(generics.ListAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
+# class UserList(generics.ListAPIView):
+#     queryset = User.objects.all()
+#     serializer_class = UserSerializer
 
 
 class ManagerDetail(generics.RetrieveAPIView):

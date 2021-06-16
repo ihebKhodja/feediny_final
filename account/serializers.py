@@ -9,10 +9,10 @@ class ManagerSerializer(serializers.ModelSerializer):
         model = Manager
         fields = ['id','user', 'phone_number']
 
-class UserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = '__all__'
+# class UserSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = User
+#         fields = '__all__'
 
 
 class ClientSerializer(serializers.ModelSerializer):
