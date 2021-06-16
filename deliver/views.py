@@ -9,7 +9,7 @@ from account.models import *
 from .serializers import *
 from django.contrib.auth.models import User
 from account.models import Client
-
+from django.db.models import F
 
 #### Restaurant
 class RestaurantList(generics.ListAPIView):
@@ -97,10 +97,14 @@ class CartAdd(APIView):
         cart.price = meal_obj.price
         cart.client_id = data["client"]
         serializer = CartSerializer(cart)
-
         return Response(serializer.data)
 
 class AddMealToCart(APIView):##### add new meal to cart
+    def get_object_meal(self, pk):
+        try:
+            return Meal.objects.get(pk=pk)
+        except Cart.DoesNotExist:
+            raise Http404
 
     def get_object(self, pk):
         try:
@@ -108,22 +112,31 @@ class AddMealToCart(APIView):##### add new meal to cart
         except Cart.DoesNotExist:
             raise Http404
 
+    # def calculate_price(self, pk):
+    #     cart = self.get_object(pk)
+    #     for meal in cart.meal[cart.meal.length]:
+    #         meal.price += meal.price[]
+
 
     def post(self, request, pk, fomart=None):
         cart = self.get_object(pk)
-        meal_obj = Meal.objects.get(id=request.data["meal"])
+        meal_obj = self.get_object_meal(request.data["meal"])
         restaurant_obj = meal_obj.restaurant
         cart.meal.add(meal_obj)
         cart.restaurant.add(restaurant_obj)
+        cart.client_id = request.data["client"]
         cart.save()
         serializer = CartSerializer(cart)
-        # if serializer.is_valid():
-        #     serializer.save()
         return Response(serializer.data)
-        # return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class deleteMealCart(APIView):##### add new meal to cart
+
+    def get_object_meal(self, pk):
+        try:
+            return Meal.objects.get(pk=pk)
+        except Cart.DoesNotExist:
+            raise Http404
 
     def get_object(self, pk):
         try:
@@ -133,10 +146,11 @@ class deleteMealCart(APIView):##### add new meal to cart
 
     def delete(self, request, pk, fomart=None):
         cart = self.get_object(pk)
-        meal_obj = Meal.objects.get(id=request.data["meal"])
+        meal_obj = self.get_object_meal(request.data["meal"])
         restaurant_obj = meal_obj.restaurant
         cart.meal.remove(meal_obj)
         cart.restaurant.remove(restaurant_obj)
+        cart.client_id = request.data["client"]
         cart.save()
         serializer = CartSerializer(cart)
         return Response(serializer.data)

@@ -46,10 +46,9 @@ class Cart(models.Model):
     meal = models.ManyToManyField('Meal')
 
 
-    # def cart_price(self):
-    #     self.price = self.meal.price
-    #     return self.price
 
+    def __str__(self):
+        return self.pk
 
 class Order(models.Model):
     CHOICES = (
@@ -63,3 +62,6 @@ class Order(models.Model):
     client = models.ForeignKey('account.Client',on_delete=models.CASCADE, null=True)
     cart = models.ForeignKey('Cart', on_delete=models.PROTECT, null=True)
     status = models.CharField(max_length=100, choices= CHOICES, null=True)
+
+    def __str__(self):
+        return self.pk
