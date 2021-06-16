@@ -9,8 +9,7 @@ class Manager(models.Model):
     is_superuser = False
     is_staff = False
 
-    def __str__(self):
-        return str(self.phone_number)
+
 
 
 class Client(models.Model):
@@ -24,8 +23,7 @@ class Client(models.Model):
     is_staff = False
 
 
-    def __str__(self):
-        return str(self.phone_number)
+
 
 
 
