@@ -103,6 +103,17 @@ DATABASES = {
         'PASSWORD': '98f00e3ec109dee4ce16b4f9e3d0402efa0441c08c7d87f2a4b8a872510438d4',
     }
 }
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'feediny',
+#         'PORT': 3306,
+#         'USER': 'root',
+#         'PASSWORD': '12345',
+#         'HOST': 'localhost'
+#     }
+# }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
