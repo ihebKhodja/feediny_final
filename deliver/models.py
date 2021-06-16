@@ -47,8 +47,7 @@ class Cart(models.Model):
 
 
 
-    def __str__(self):
-        return self.pk
+
 
 class Order(models.Model):
     CHOICES = (
@@ -63,5 +62,3 @@ class Order(models.Model):
     cart = models.ForeignKey('Cart', on_delete=models.PROTECT, null=True)
     status = models.CharField(max_length=100, choices= CHOICES, null=True)
 
-    def __str__(self):
-        return self.pk
