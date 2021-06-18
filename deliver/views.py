@@ -208,7 +208,8 @@ class OrderAdd(APIView):
         order = Order.objects.create()
         order.cart = cart
         order.restaurant.add(data["restaurant"])
-        order.client = cart.client
+        client = Client.objects.get(pk=request.data["client"])
+        order.client = client
         order.status = data["status"]
         order.save()
         serializer = OrderSerializer(order)
