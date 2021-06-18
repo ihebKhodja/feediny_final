@@ -1,4 +1,6 @@
 from rest_framework import serializers, permissions
+
+from account.serializers import ClientSerializer
 from .models import *
 from django.contrib.auth.models import User
 from account.models import Manager, Client
@@ -33,7 +35,7 @@ class CartSerializer(serializers.ModelSerializer):
 
 
 class OrderSerializer(serializers.ModelSerializer):
-    cart= CartSerializer()
+    client= ClientSerializer()
 
     class Meta:
         model = Order
