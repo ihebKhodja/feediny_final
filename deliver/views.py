@@ -163,8 +163,23 @@ class OrderList(generics.ListAPIView):
     serializer_class = OrderSerializer
 
 class OrderAdd(generics.CreateAPIView):
-    queryset = Order.objects.all()
-    serializer_class = OrderSerializer
+    def get_object(self, pk):
+        try:
+            return Cart.objects.get(pk=pk)
+        except Cart.DoesNotExist:
+            raise Http404
+
+    def post(self, request, *args, **kwargs):
+        data = request.data
+        cart = self.get_object(data["cart"])
+        order = Order.objects.create()
+        order.cart = cart
+        order.restaurant.add(data["restaurant"])
+        order.client = cart.client
+        order.status= data["status"]
+        order.save()
+        serializer = CartSerializer(order)
+        return Response(serializer.data)
 
 
 ### search for Order by Restaurant ID
