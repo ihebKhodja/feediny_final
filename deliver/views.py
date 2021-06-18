@@ -50,12 +50,7 @@ class MealCreate(generics.CreateAPIView):
         category = self.get_object_category(data["category"])
         meal = Meal.objects.create(name=data["name"], ingredients=data["ingredients"], price=data["price"],
                                    photo=data["photo"],restaurant = restaurant,category=category)
-        # meal.name= data["name"]
-        # meal.price= data["price"]
-        # meal.photo= data["photo"]
-        # meal.ingredients= data["ingredients"]
-        # meal.restaurant = restaurant
-        # meal.category = category
+
         serializer = MealSerializer(meal)
         return Response(serializer.data)
 
