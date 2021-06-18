@@ -29,8 +29,36 @@ class RestaurantDetail(generics.RetrieveUpdateDestroyAPIView):
 #### Meal
 #### to get list of meals ( GET request) and create a new meal ( POST request)
 class MealCreate(generics.CreateAPIView):
-    queryset = Meal.objects.all()
-    serializer_class = MealSerializer
+    # queryset = Meal.objects.all()
+    # serializer_class = MealSerializer
+    def get_object_restaurant(self, pk):
+        try:
+            return Restaurant.objects.get(pk=pk)
+        except Cart.DoesNotExist:
+            raise Http404
+
+
+    def get_object_category(self, pk):
+        try:
+            return Category.objects.get(pk=pk)
+        except Cart.DoesNotExist:
+            raise Http404
+
+    def post(self, request, *args, **kwargs):
+        data = request.data
+        restaurant = self.get_object_restaurant(data["restaurant"])
+        category = self.get_object_category(data["category"])
+        meal = Meal.objects.create(name=data["name"], ingredients=data["ingredients"], price=data["price"],
+                                   photo=data["photo"],restaurant = restaurant,category=category)
+        # meal.name= data["name"]
+        # meal.price= data["price"]
+        # meal.photo= data["photo"]
+        # meal.ingredients= data["ingredients"]
+        # meal.restaurant = restaurant
+        # meal.category = category
+        serializer = MealSerializer(meal)
+        return Response(serializer.data)
+
 
 
 class MealListAll(generics.ListAPIView):
