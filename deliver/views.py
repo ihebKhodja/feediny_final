@@ -162,7 +162,8 @@ class OrderList(generics.ListAPIView):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
 
-class OrderAdd(generics.CreateAPIView):
+
+class OrderAdd(APIView):
     def get_object(self, pk):
         try:
             return Cart.objects.get(pk=pk)
@@ -176,7 +177,7 @@ class OrderAdd(generics.CreateAPIView):
         order.cart = cart
         order.restaurant.add(data["restaurant"])
         order.client = cart.client
-        order.status= data["status"]
+        order.status = data["status"]
         order.save()
         serializer = OrderSerializer(order)
         return Response(serializer.data)
