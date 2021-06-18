@@ -28,7 +28,7 @@ class RestaurantDetail(generics.RetrieveUpdateDestroyAPIView):
 
 #### Meal
 #### to get list of meals ( GET request) and create a new meal ( POST request)
-class MealCreate(generics.ListCreateAPIView):
+class MealCreate(generics.CreateAPIView):
     queryset = Meal.objects.all()
     serializer_class = MealSerializer
 
