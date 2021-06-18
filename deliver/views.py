@@ -33,6 +33,10 @@ class MealCreate(generics.CreateAPIView):
     serializer_class = MealSerializer
 
 
+class MealListAll(generics.ListAPIView):
+    queryset = Meal.objects.all()
+    serializer_class = MealSerializer
+
 class MealList(generics.RetrieveAPIView):
     queryset = Meal.objects.all()
     serializer_class = MealSerializer

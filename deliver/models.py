@@ -32,7 +32,7 @@ class Meal(models.Model):
     price = models.FloatField()
     restaurant = models.ForeignKey('Restaurant', on_delete=models.CASCADE, blank=True)
     category = models.ForeignKey('Category', on_delete=models.CASCADE, blank=True)
-    order = models.ForeignKey('Order', on_delete=models.CASCADE, blank=True, null=True)
+    order = models.ManyToManyField('Order', blank=True, null=True)
 
 
     def __str__(self):
