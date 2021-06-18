@@ -9,7 +9,6 @@ from account.models import *
 from .serializers import *
 from django.contrib.auth.models import User
 from account.models import Client
-from django.db.models import F
 
 #### Restaurant
 class RestaurantList(generics.ListAPIView):
@@ -76,10 +75,6 @@ class CartList(generics.ListAPIView):
     queryset = Cart.objects.all()
     serializer_class = CartSerializer
 
-# class CartAdd(generics.CreateAPIView):
-#      queryset = Cart.objects.all()
-#      serializer_class = CartSerializer
-
 class CartAdd(APIView):
 
     def get_object(self, pk):
@@ -95,7 +90,8 @@ class CartAdd(APIView):
         cart.meal.add(meal_obj)
         cart.restaurant.add(meal_obj.restaurant)
         cart.price = meal_obj.price
-        cart.client_id = data["client"]
+        client = Client.objects.get(pk=request.data["client"])
+        cart.client = client
         serializer = CartSerializer(cart)
         return Response(serializer.data)
 
@@ -112,10 +108,6 @@ class AddMealToCart(APIView):##### add new meal to cart
         except Cart.DoesNotExist:
             raise Http404
 
-    # def calculate_price(self, pk):
-    #     cart = self.get_object(pk)
-    #     for meal in cart.meal[cart.meal.length]:
-    #         meal.price += meal.price[]
 
 
     def post(self, request, pk, fomart=None):
@@ -124,7 +116,8 @@ class AddMealToCart(APIView):##### add new meal to cart
         restaurant_obj = meal_obj.restaurant
         cart.meal.add(meal_obj)
         cart.restaurant.add(restaurant_obj)
-        cart.client_id = request.data["client"]
+        client = Client.objects.get(pk=request.data["client"])
+        cart.client = client
         cart.save()
         serializer = CartSerializer(cart)
         return Response(serializer.data)
@@ -150,7 +143,8 @@ class deleteMealCart(APIView):##### add new meal to cart
         restaurant_obj = meal_obj.restaurant
         cart.meal.remove(meal_obj)
         cart.restaurant.remove(restaurant_obj)
-        cart.client_id = request.data["client"]
+        client = Client.objects.get(pk=request.data["client"])
+        cart.client = client
         cart.save()
         serializer = CartSerializer(cart)
         return Response(serializer.data)
