@@ -178,7 +178,7 @@ class OrderAdd(generics.CreateAPIView):
         order.client = cart.client
         order.status= data["status"]
         order.save()
-        serializer = CartSerializer(order)
+        serializer = OrderSerializer(order)
         return Response(serializer.data)
 
 
